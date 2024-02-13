@@ -1,5 +1,6 @@
 <div class="w-1/2">
   <div class="flex flex-row gap-2">
+    <%= link_to "<-", decks_path, class: "outline outline-2 bg-white-500 hover:bg-white-700 text-black font-bold px-2 rounded" %>
     <h1><%= @deck.name %></h1>
     <h1><%= @deck.description %></h1>
   </div>

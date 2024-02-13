@@ -1,10 +1,4 @@
 <div class="w-full flex flex-col gap-y-2">
-  <div class="flex justify-between">
-    <%= link_to "<-", decks_path, class: "outline outline-2 outline-offset-2 bg-white-500 hover:bg-white-700 text-black font-bold py-2 px-4 rounded" %>
-    <div>
-      <%= link_to '+', new_card_deck_path(@deck), remote: true, class: "outline outline-2 outline-offset-2 bg-white-500 hover:bg-white-700 text-black font-bold py-2 px-4 rounded" %>
-    </div>
-  </div>
   <div class="w-full flex flex-row">
     <%= render 'decks/actions' %>
     <%= render 'decks/cards' %>

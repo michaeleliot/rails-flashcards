@@ -4,6 +4,7 @@
       <h1><%= current_user.username_from_email %>'s Decks</h1>
       <%= link_to '+', new_deck_path, remote: true, class: "outline outline-2 outline-offset-2 bg-white-500 hover:bg-white-700 text-black font-bold px-2 rounded" %>
     </div>
+    <%= link_to "Logout", destroy_user_session_path, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
     <% if @user_decks.count == 0 %>
       No user decks
     <% end %>
