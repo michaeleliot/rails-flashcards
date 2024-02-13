@@ -1,0 +1,22 @@
+<%= form_with(model: [ @deck, @card ]) do |form| %>
+  <p>
+    <%= form.label :question %><br>
+    <%= form.text_field :question %>
+  </p>
+  <p>
+      <%= form.label :question_image %>
+      <%= form.file_field :question_image %>
+  </p>
+  <p>
+    <%= form.label :answer %><br>
+    <%= form.text_area :answer %>
+  </p>
+  <p>
+      <%= form.label :answer_image %>
+      <%= form.file_field :answer_image %>
+  </p>
+  <p>
+    <%= form.submit @card.new_record? ? "Create" : "Update" %>
+  </p>
+<% end %>
+

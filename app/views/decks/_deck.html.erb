@@ -1,0 +1,13 @@
+<div class="flex flex-col max-w-sm rounded overflow-hidden shadow-lg p-3">
+  <%= link_to deck do %>
+  <div>
+    <%= deck.name %>
+    <div>
+      To Review: <%= deck.cards_to_review.count %>
+    </div>
+    <div>
+      Completed: <%= deck.cards_not_to_review.count %>
+    </div>
+  </div>
+  <% end %>
+</div>
