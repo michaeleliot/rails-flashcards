@@ -14,7 +14,6 @@ Rails.application.routes.draw do
       get 'next', on: :member
       patch 'set_reviewed', on: :member
     end
-    get 'new_card', on: :member
     get 'done', on: :member
     get 'study', on: :member
     get 'reset', on: :member

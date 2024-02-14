@@ -1,7 +1,7 @@
 class DecksController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :find_deck, only: [:show, :reset, :update, :edit, :destroy, :done, :study, :new_card]
+  before_action :find_deck, only: [:show, :reset, :update, :edit, :destroy, :done, :study]
 
   def index
     @user_decks = current_user.decks
@@ -53,10 +53,6 @@ class DecksController < ApplicationController
 
   def study
     @current_card = @deck.cards_to_review.first
-  end
-
-  def new_card
-    @card = Card.new
   end
 
   private

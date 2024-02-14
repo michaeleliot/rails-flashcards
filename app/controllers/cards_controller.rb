@@ -6,6 +6,10 @@ class CardsController < ApplicationController
   def edit
     @card = Card.find(params[:id])
   end
+
+  def new
+    @card = @deck.cards.build
+  end
   
   def create
     @card = @deck.cards.create(card_params)

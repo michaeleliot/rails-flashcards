@@ -1,16 +1,23 @@
 <div class="w-1/2">
-  <turbo-frame id="cards" class="flex flex-col w-full gap-y-3">
+  <div id="cards" class="flex flex-col w-full gap-y-3">
     <div class="flex gap-x-3">
       <h2><%= @deck.cards.length %> Cards Total</h2>
-      <%= link_to '+', new_card_deck_path(@deck), remote: true, class: "outline outline-2 bg-white-500 hover:bg-white-700 text-black font-bold px-2 rounded" %>
+      <%= link_to '+', new_deck_card_path(@deck), remote: true, class: "outline outline-2 bg-white-500 hover:bg-white-700 text-black font-bold px-2 rounded" %>
     </div>
-    <h2><%= @deck.cards_to_review.length %> Cards To Review</h2>
-    <div class="grid grid-cols-3 gap-4">
-      <%= render @deck.cards_to_review %>
-    </div>
-    <h2><%= @deck.cards_not_to_review.length %> Reviewed</h2>
-    <div class="grid grid-cols-3 gap-4">
-      <%= render @deck.cards_not_to_review %>
-    </div>
-  </turbo-frame>
+    <turbo-frame id="card_to_review" class="flex flex-col w-full gap-y-3">
+      <h2><%= @deck.cards_to_review.length %> Cards To Review</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <%= render @deck.cards_to_review %>
+      </div>
+      <div class="flex flex-row gap-x-3">
+        <h2><%= @deck.cards_not_to_review.length %> Reviewed</h2>
+        <% if @deck.cards_not_to_review.count > 0 %>
+          <%= link_to '↺', reset_deck_path(@deck), remote: true, class: "outline outline-2 bg-white-500 hover:bg-white-700 text-black font-bold px-2 rounded" %>
+        <% end %>
+      </div>
+      <div class="grid grid-cols-3 gap-4">
+        <%= render @deck.cards_not_to_review %>
+      </div>
+    </turbo-frame>
+  </div>
 </div>
