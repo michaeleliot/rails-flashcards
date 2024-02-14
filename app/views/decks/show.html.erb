@@ -1,6 +1,10 @@
 <div class="w-full flex flex-col gap-y-2">
-  <div class="w-full flex flex-row">
-    <%= render 'decks/actions' %>
-    <%= render 'decks/cards' %>
+  <div class="w-full flex flex-col md:flex-row">
+    <div class="md:w-1/2">
+      <%= render 'decks/actions' %>
+    </div>
+    <div class="md:w-1/2 md:my-3">
+      <%= render 'decks/cards' %>
+    </div>
   </div>
 <div>

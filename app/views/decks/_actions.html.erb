@@ -1,17 +1,15 @@
-<div class="w-1/2">
-  <div class="flex flex-row gap-2">
-    <%= link_to "<-", decks_path, class: "outline outline-2 bg-white-500 hover:bg-white-700 text-black font-bold px-2 rounded" %>
-    <h1><%= @deck.name %></h1>
-    <h1><%= @deck.description %></h1>
-  </div>
-  <div class="flex flex-row gap-2">
-    <p><%= link_to "Edit", edit_deck_path(@deck) %></p>
-    <p><%= link_to "Destroy", deck_path(@deck), data: {
-                      turbo_method: :delete,
-                      turbo_confirm: "Are you sure?"
-                    } %></p>
-    <% if @deck.cards_to_review.count > 0 %>
-      <%= link_to 'Start', study_deck_path(@deck), remote: true %>
-    <% end %>
-  </div>
+<%= link_to "<-", decks_path, class: "outline outline-2 bg-white-500 hover:bg-white-700 text-black font-bold px-2 rounded" %>
+<div class="flex flex-col md:flex-row gap-2">
+  <h1><%= @deck.name %></h1>
+  <h1><%= @deck.description %></h1>
+</div>
+<div class="flex flex-row gap-2">
+  <p><%= link_to "Edit", edit_deck_path(@deck) %></p>
+  <p><%= link_to "Destroy", deck_path(@deck), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></p>
+  <% if @deck.cards_to_review.count > 0 %>
+    <%= link_to 'Start', study_deck_path(@deck), remote: true %>
+  <% end %>
 </div>

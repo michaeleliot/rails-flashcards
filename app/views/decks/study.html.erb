@@ -4,7 +4,7 @@
       <h1><%= @current_card.question %></h1>
       <% if @current_card.question_image.attached? %>
         <% resized_question_image = @current_card.question_image.variant(resize_to_fill: [300, 200]) %>
-        <%= image_tag url_for(resized_question_image), alt: "User Avatar" %>
+        <%= image_tag url_for(resized_question_image), alt: "Question Image" %>
       <% end %>
       <button data-action="click->reveal#reveal">Reveal</button>
     </div>
@@ -12,9 +12,9 @@
       <%= @current_card.answer %>
       <% if @current_card.answer_image.attached? %>
         <% resized_answered_image = @current_card.answer_image.variant(resize_to_fill: [300, 200]) %>
-        <%= image_tag url_for(resized_answered_image), alt: "User Avatar" %>
+        <%= image_tag url_for(resized_answered_image), alt: "Answer Image" %>
       <% end %>
-      <div class="flex flex-row gap-x-10" data-reveal-target="reveal">
+      <div class="flex flex-row gap-x-7 md:gap-x-10" data-reveal-target="reveal">
         <div class="flex flex-col gap-y-2 items-center">
           &lt;1m
           <%= link_to 'Again', next_deck_card_path(@deck, @current_card, review_time: Time.now + (1 * 60)), remote: true, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
