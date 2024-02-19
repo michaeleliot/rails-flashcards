@@ -3,6 +3,8 @@ class CardsController < ApplicationController
 
   before_action :find_deck
 
+  include AccessRequired
+
   def edit
     @card = Card.find(params[:id])
   end
@@ -19,12 +21,12 @@ class CardsController < ApplicationController
   def next
     finished_card = Card.find(params[:id])
 
-    current_card_index = @deck.cards_to_review.find_index(finished_card)
+    current_card_index = @deck.cards_to_review(current_user).find_index(finished_card)
     next_card_index = current_card_index + 1
-    @current_card = @deck.cards_to_review[next_card_index]
+    @current_card = @deck.cards_to_review(current_user)[next_card_index]
 
     review_time = params[:review_time]
-    finished_card.update(review_time: Time.parse(review_time))
+    finished_card.update_review_time(Time.parse(review_time), current_user)
 
     if @current_card
       render "decks/study"
@@ -53,15 +55,10 @@ class CardsController < ApplicationController
   end
 
   def find_deck
-    @deck = Deck.find(params[:deck_id])
-    unless current_user_has_access_to_deck
-      flash[:alert] = "You do not have access to view this deck."
-      redirect_to root_path, status: :forbidden
+    if params[:deck_id]
+      @deck = Deck.find(params[:deck_id])
     end
   end
 
-  def current_user_has_access_to_deck
-    @deck.user == current_user || @deck.user == nil
-  end
 end
 

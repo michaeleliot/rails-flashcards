@@ -9,7 +9,7 @@
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
                   } %></p>
-  <% if @deck.cards_to_review.count > 0 %>
+  <% if @deck.cards_to_review(current_user).count > 0 %>
     <%= link_to 'Start', study_deck_path(@deck), remote: true %>
   <% end %>
 </div>

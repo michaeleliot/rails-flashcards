@@ -1,0 +1,2 @@
+class ReviewEvent < ApplicationRecord
+end

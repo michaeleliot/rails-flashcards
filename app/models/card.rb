@@ -1,14 +1,16 @@
 class Card < ApplicationRecord
   belongs_to :deck
-
-  before_create :set_default_time_to_review
   
   has_one_attached :question_image, service: :local
   has_one_attached :answer_image, service: :local
+  has_many :review_event
+  after_create :initialize_review_event
+  belongs_to :user
 
-  private
-
-  def set_default_time_to_review
-    self.review_time ||= Time.now
+  def update_review_time(new_review_time, current_user)
+    review_event = ReviewEvent.find_or_initialize_by(user_id: current_user.id, card_id: id)
+    review_event.reviewed_at = new_review_time
+    review_event.save
   end
+
 end

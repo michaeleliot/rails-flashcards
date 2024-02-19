@@ -16,6 +16,14 @@
   </div>
 
   <div>
+    <%= form.label :is_public %><br>
+    <%= form.check_box :is_public %><br>
+    <% deck.errors.full_messages_for(:is_public).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

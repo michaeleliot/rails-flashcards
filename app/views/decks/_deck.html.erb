@@ -3,10 +3,10 @@
   <div>
     <%= truncate(deck.name, length: 50, omission: '...')  %>
     <div>
-      To Review: <%= deck.cards_to_review.count %>
+      To Review: <%= deck.cards_to_review(current_user).count %>
     </div>
     <div>
-      Completed: <%= deck.cards_not_to_review.count %>
+      Completed: <%= deck.cards_not_to_review(current_user).count %>
     </div>
   </div>
   <% end %>

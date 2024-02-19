@@ -1,11 +1,13 @@
 class DecksController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :find_deck, only: [:show, :reset, :update, :edit, :destroy, :done, :study]
+  before_action :find_deck
+
+  include AccessRequired
 
   def index
     @user_decks = current_user.decks
-    @decks = Deck.where(user_id: nil)
+    @decks = Deck.where(is_public: true).where.not(user: current_user)
   end
 
   def show
@@ -13,7 +15,7 @@ class DecksController < ApplicationController
 
   def reset
     @deck.cards.each do |card|
-      card.update(review_time: Time.now)
+      card.update_review_time(Time.now, current_user)
     end
     redirect_to @deck
   end
@@ -52,24 +54,20 @@ class DecksController < ApplicationController
   end
 
   def study
-    @current_card = @deck.cards_to_review.first
+    @current_card = @deck.cards_to_review(current_user).first
   end
 
   private
 
   def deck_params
-    params.require(:deck).permit(:name, :description)
+    params.require(:deck).permit(:name, :description, :is_public)
   end
 
   def find_deck
-    @deck = Deck.find(params[:id])
-    unless current_user_has_access_to_deck
-      flash[:alert] = "You do not have access to view this deck."
-      redirect_to root_path, status: :forbidden
+    if params[:id]
+      @deck = Deck.find(params[:id])
     end
   end
 
-  def current_user_has_access_to_deck
-    @deck.user == current_user || @deck.user == nil
-  end
+  
 end

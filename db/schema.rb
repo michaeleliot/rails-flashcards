@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_13_183141) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_19_182549) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -43,21 +43,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_183141) do
     t.string "question"
     t.string "answer"
     t.string "question_image"
-    t.datetime "review_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "deck_id"
     t.string "answer_image"
+    t.integer "user_id"
     t.index ["deck_id"], name: "index_cards_on_deck_id"
-  end
-
-  create_table "deck_cards", force: :cascade do |t|
-    t.integer "deck_id", null: false
-    t.integer "card_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["card_id"], name: "index_deck_cards_on_card_id"
-    t.index ["deck_id"], name: "index_deck_cards_on_deck_id"
+    t.index ["user_id"], name: "index_cards_on_user_id"
   end
 
   create_table "decks", force: :cascade do |t|
@@ -66,7 +58,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_183141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.boolean "is_public"
     t.index ["user_id"], name: "index_decks_on_user_id"
+  end
+
+  create_table "review_events", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "card_id", null: false
+    t.datetime "reviewed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_review_events_on_card_id"
+    t.index ["user_id"], name: "index_review_events_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -84,7 +87,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_183141) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cards", "decks"
-  add_foreign_key "deck_cards", "cards"
-  add_foreign_key "deck_cards", "decks"
+  add_foreign_key "cards", "users"
   add_foreign_key "decks", "users"
+  add_foreign_key "review_events", "cards"
+  add_foreign_key "review_events", "users"
 end
