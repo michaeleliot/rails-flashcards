@@ -15,7 +15,14 @@ class CardsController < ApplicationController
   
   def create
     @card = @deck.cards.create(card_params)
-    redirect_to deck_path(@deck)
+
+    if @card.save
+      redirect_to @deck
+    else
+      print("michael eliot")
+      puts @card.errors.full_messages if @card.errors.any?
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def next
