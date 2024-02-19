@@ -23,4 +23,8 @@ class Deck < ApplicationRecord
     Card.find_by_sql [sql, current_user.id, id, Time.now]
   end
 
+  def is_owner(current_user)
+    user == current_user
+  end
+
 end

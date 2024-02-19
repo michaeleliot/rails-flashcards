@@ -1,9 +1,13 @@
 class CardsController < ApplicationController
   before_action :authenticate_user!
 
+  include AccessRequired
+
   before_action :find_deck
 
-  include AccessRequired
+  before_action :has_access, only: [:next, :set_reviewed]
+
+  before_action :is_owner, only: [:new, :create, :edit, :destroy]
 
   def edit
     @card = Card.find(params[:id])
@@ -19,8 +23,6 @@ class CardsController < ApplicationController
     if @card.save
       redirect_to @deck
     else
-      print("michael eliot")
-      puts @card.errors.full_messages if @card.errors.any?
       render :new, status: :unprocessable_entity
     end
   end
@@ -62,9 +64,7 @@ class CardsController < ApplicationController
   end
 
   def find_deck
-    if params[:deck_id]
-      @deck = Deck.find(params[:deck_id])
-    end
+    @deck = Deck.find(params[:deck_id])
   end
 
 end

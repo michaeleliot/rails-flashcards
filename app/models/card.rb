@@ -3,7 +3,7 @@ class Card < ApplicationRecord
   
   has_one_attached :question_image, service: :local
   has_one_attached :answer_image, service: :local
-  has_many :review_event
+  has_many :review_event, dependent: :destroy
 
   def update_review_time(new_review_time, current_user)
     review_event = ReviewEvent.find_or_initialize_by(user_id: current_user.id, card_id: id)

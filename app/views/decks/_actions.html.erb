@@ -4,11 +4,13 @@
   <h1><%= @deck.description %></h1>
 </div>
 <div class="flex flex-row gap-2">
-  <p><%= link_to "Edit", edit_deck_path(@deck) %></p>
-  <p><%= link_to "Destroy", deck_path(@deck), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %></p>
+  <% if @deck.is_owner(current_user) %>
+    <p><%= link_to "Edit", edit_deck_path(@deck) %></p>
+    <p><%= link_to "Destroy", deck_path(@deck), data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?"
+                    } %></p>
+  <% end %>
   <% if @deck.cards_to_review(current_user).count > 0 %>
     <%= link_to 'Start', study_deck_path(@deck), remote: true %>
   <% end %>

@@ -1,7 +1,9 @@
 <div id="cards" class="flex flex-col w-full gap-y-3">
   <div class="flex gap-x-3">
     <h2><%= @deck.cards.length %> Cards Total</h2>
-    <%= link_to '+', new_deck_card_path(@deck), remote: true, class: "outline outline-2 bg-white-500 hover:bg-white-700 text-black font-bold px-2 rounded" %>
+    <% if @deck.is_owner(current_user) %>
+      <%= link_to '+', new_deck_card_path(@deck), remote: true, class: "outline outline-2 bg-white-500 hover:bg-white-700 text-black font-bold px-2 rounded" %>
+    <% end %>
   </div>
   <turbo-frame id="card_to_review" class="flex flex-col w-full gap-y-3">
     <h2><%= @deck.cards_to_review(current_user).length %> Cards To Review</h2>

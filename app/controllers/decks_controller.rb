@@ -1,9 +1,13 @@
 class DecksController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :find_deck
-
   include AccessRequired
+
+  before_action :find_deck, except: :index
+
+  before_action :has_access, only: [:show, :reset, :study, :done]
+
+  before_action :is_owner, only: [:edit, :update, :destroy]
 
   def index
     @user_decks = current_user.decks
@@ -64,9 +68,8 @@ class DecksController < ApplicationController
   end
 
   def find_deck
-    if params[:id]
-      @deck = Deck.find(params[:id])
-    end
+    print("michael eliot")
+    @deck = Deck.find(params[:id])
   end
 
   
