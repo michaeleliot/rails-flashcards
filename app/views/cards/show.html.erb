@@ -6,7 +6,7 @@
         <% resized_question_image = @card.question_image.variant(resize_to_fill: [300, 200]) %>
         <%= image_tag url_for(resized_question_image), alt: "Question Image" %>
       <% end %>
-      <button class="outline dark:outline-white p-2 rounded" data-action="click->reveal#reveal">Reveal</button>
+      <button class="outline dark:outline-white p-2 rounded" data-action="click->reveal#reveal">reveal</button>
     </div>
     <div class="flex flex-col gap-y-2 hidden items-center" data-reveal-target="reveal">
       <%= @card.answer %>
