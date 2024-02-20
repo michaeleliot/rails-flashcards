@@ -1,0 +1,38 @@
+<div id="card" data-controller="reveal" class="w-full h-full dark:bg-slate-700 dark:text-white">
+    <%= link_to "<-", deck_path(@deck), class: "outline outline-2 outline-offset-2 bg-white-500 hover:bg-white-700 text-black font-bold py-2 px-4 rounded dark:text-white dark:outline-white" %>
+    <div class="flex flex-col gap-y-2 items-center" data-reveal-target="hide">
+      <h1><%= @card.question %></h1>
+      <% if @card.question_image.attached? %>
+        <% resized_question_image = @card.question_image.variant(resize_to_fill: [300, 200]) %>
+        <%= image_tag url_for(resized_question_image), alt: "Question Image" %>
+      <% end %>
+      <button class="outline dark:outline-white p-2 rounded" data-action="click->reveal#reveal">Reveal</button>
+    </div>
+    <div class="flex flex-col gap-y-2 hidden items-center" data-reveal-target="reveal">
+      <%= @card.answer %>
+      <% if @card.answer_image.attached? %>
+        <% resized_answered_image = @card.answer_image.variant(resize_to_fill: [300, 200]) %>
+        <%= image_tag url_for(resized_answered_image), alt: "Answer Image" %>
+      <% end %>
+      <div class="flex flex-row gap-x-7 hidden md:gap-x-10" data-reveal-target="reveal">
+        <div class="flex flex-col gap-y-2 items-center">
+          &lt;1m
+          <%= link_to 'Again', next_deck_card_path(@deck, @card, review_time: Time.now + (1 * 60)), remote: true, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+        </div>
+        <div class="flex flex-col gap-y-2 items-center">
+          &lt;5m
+          <%= link_to 'Hard', next_deck_card_path(@deck, @card, review_time: Time.now + (5 * 60)), remote: true, class: "bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" %>
+        </div>
+        <div class="flex flex-col gap-y-2 items-center">
+          &lt;10m
+          <%= link_to 'Good', next_deck_card_path(@deck, @card, review_time: Time.now + (10 * 60)), remote: true, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+        </div>
+        <div class="flex flex-col gap-y-2 items-center">
+          7d
+          <%= link_to 'Easy', next_deck_card_path(@deck, @card, review_time: Time.now + (7 * 24 * 60 * 60)), remote: true, class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+        </div>
+      </div>
+    </div>
+    
+</div>
+

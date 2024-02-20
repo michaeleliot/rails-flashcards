@@ -59,6 +59,7 @@ class DecksController < ApplicationController
 
   def study
     @current_card = @deck.cards_to_review(current_user).first
+    redirect_to deck_card_path(@deck, @current_card)
   end
 
   private

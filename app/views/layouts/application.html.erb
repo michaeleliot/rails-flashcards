@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html class="dark">
+<html class="light">
   <head>
     <title>Flashcards</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <p class="notice px-20 dark:text-white dark:bg-slate-700"><%= notice %></p>
+    <p class="alert px-20 dark:text-white dark:bg-slate-700"><%= alert %></p>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>

@@ -5,7 +5,7 @@ class CardsController < ApplicationController
 
   before_action :find_deck
 
-  before_action :has_access, only: [:next, :set_reviewed]
+  before_action :has_access, only: [:next, :set_reviewed, :show]
 
   before_action :is_owner, only: [:new, :create, :edit, :destroy]
 
@@ -47,10 +47,14 @@ class CardsController < ApplicationController
     finished_card.update_review_time(Time.parse(review_time), current_user)
 
     if @current_card
-      render "decks/study"
+      redirect_to deck_card_path(@deck, @current_card)
     else
-      render "decks/done"
+      redirect_to done_deck_path(@deck)
     end
+  end
+
+  def show
+    @card = Card.find(params[:id])
   end
 
   def set_reviewed
