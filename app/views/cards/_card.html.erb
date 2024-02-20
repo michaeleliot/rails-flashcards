@@ -1,4 +1,4 @@
-<div class="max-w-sm rounded overflow-hidden shadow-lg p-3">
+<div class="max-w-sm rounded overflow-hidden shadow-lg p-3 rounded outline outline-slate-500 dark:outline-white">
   <p>
     <strong>Question:</strong>
     <%= truncate(card.question, length: 50, omission: '...') %>
@@ -11,8 +11,8 @@
 
   <% if @deck.is_owner(current_user) %>
     <div class="flex flex-row gap-x-3">
-      <p><%= link_to "Edit", edit_deck_card_path(@deck, card) %></p>
-      <p><%= link_to "Delete", [card.deck, card], data: {
+      <p><%= link_to "edit", edit_deck_card_path(@deck, card) %></p>
+      <p><%= link_to "delete", [card.deck, card], data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
                   } %></p>

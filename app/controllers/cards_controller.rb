@@ -13,6 +13,15 @@ class CardsController < ApplicationController
     @card = Card.find(params[:id])
   end
 
+  def update
+    @card = Card.find(params[:id])
+    if @card.update(card_params)
+      redirect_to @deck
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def new
     @card = @deck.cards.build
   end

@@ -1,7 +1,7 @@
 <%= form_with(model: [ @deck, @card ]) do |form| %>
   <p>
     <%= form.label :question %><br>
-    <%= form.text_field :question %>
+    <%= form.text_field :question, class: "dark:bg-slate-700 rounded" %>
   </p>
   <p>
       <%= form.label :question_image %>
@@ -9,7 +9,7 @@
   </p>
   <p>
     <%= form.label :answer %><br>
-    <%= form.text_area :answer %>
+    <%= form.text_area :answer, class: "dark:bg-slate-700 rounded" %>
   </p>
   <p>
       <%= form.label :answer_image %>

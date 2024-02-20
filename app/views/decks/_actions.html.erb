@@ -1,17 +1,19 @@
-<%= link_to "<-", decks_path, class: "outline outline-2 bg-white-500 hover:bg-white-700 text-black font-bold px-2 rounded" %>
-<div class="flex flex-col md:flex-row gap-2">
-  <h1><%= @deck.name %></h1>
+<div class="flex flex-col gap-2">
+  <div class="flex flex-row gap-x-3 items-center">
+    <%= link_to "<-", decks_path, data: { turbo: false }, class: "flex items-center outline outline-2 hover:bg-white-700 text-black font-bold px-2 rounded h-1/2 dark:outline-white dark:text-white" %>
+    <h1 class="text-4xl font-bold text-center"><%= @deck.name %></h1>
+  </div>
   <h1><%= @deck.description %></h1>
 </div>
-<div class="flex flex-row gap-2">
+<div class="flex flex-row gap-2 items-center justify-between w-1/2">
   <% if @deck.is_owner(current_user) %>
-    <p><%= link_to "Edit", edit_deck_path(@deck) %></p>
-    <p><%= link_to "Destroy", deck_path(@deck), data: {
+    <p><%= link_to "edit", edit_deck_path(@deck) %></p>
+    <p><%= link_to "delete", deck_path(@deck), data: {
                       turbo_method: :delete,
                       turbo_confirm: "Are you sure?"
-                    } %></p>
+                    }  %><p>
   <% end %>
   <% if @deck.cards_to_review(current_user).count > 0 %>
-    <%= link_to 'Start', study_deck_path(@deck), remote: true %>
+    <%= link_to 'Start', study_deck_path(@deck), data: { turbo: false }, remote: true, class: "outline outline-2 rounded p-2" %>
   <% end %>
 </div>

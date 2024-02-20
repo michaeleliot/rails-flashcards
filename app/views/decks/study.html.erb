@@ -1,12 +1,12 @@
-<div id="card" data-controller="reveal" class="w-full">
-    <%= link_to "<-", deck_path(@deck), class: "outline outline-2 outline-offset-2 bg-white-500 hover:bg-white-700 text-black font-bold py-2 px-4 rounded" %>
+<div id="card" data-controller="reveal" class="w-full h-full dark:bg-slate-700 dark:text-white">
+    <%= link_to "<-", deck_path(@deck), class: "outline outline-2 outline-offset-2 bg-white-500 hover:bg-white-700 text-black font-bold py-2 px-4 rounded dark:text-white dark:outline-white" %>
     <div class="flex flex-col gap-y-2 items-center" data-reveal-target="hide">
       <h1><%= @current_card.question %></h1>
       <% if @current_card.question_image.attached? %>
         <% resized_question_image = @current_card.question_image.variant(resize_to_fill: [300, 200]) %>
         <%= image_tag url_for(resized_question_image), alt: "Question Image" %>
       <% end %>
-      <button data-action="click->reveal#reveal">Reveal</button>
+      <button class="outline dark:outline-white p-2 rounded" data-action="click->reveal#reveal">Reveal</button>
     </div>
     <div class="flex flex-col gap-y-2 items-center" data-reveal-target="reveal">
       <%= @current_card.answer %>
